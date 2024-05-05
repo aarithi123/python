@@ -81,6 +81,7 @@ if __name__ == "__main__":
             if pygame.mouse.get_pressed()[0]:
                 #  if button pressed, go to board screen
                 if 75 < mouse_pos[0] < 150 and 450 < mouse_pos[1] < 530:
+                    level = 'easy'
                     game_page = '2'
                     sudoku = SudokuGenerator(9, 30)
                     sudoku.fill_values()
@@ -89,6 +90,7 @@ if __name__ == "__main__":
                     board = Board(600, 600, screen, difficulty)
                     board.update_board(player_board)
                 if 225 < mouse_pos[0] < 375 and 450 < mouse_pos[1] < 530:
+                    level = 'medium'
                     game_page = '2'
                     sudoku = SudokuGenerator(9, 40)
                     sudoku.fill_values()
@@ -96,6 +98,7 @@ if __name__ == "__main__":
                     sudoku.remove_cells()
                     board = Board(600, 600, screen, difficulty)
                 if 400 < mouse_pos[0] < 500 and 450 < mouse_pos[1] < 530:
+                    level = 'hard'
                     game_page = '2'
                     sudoku = SudokuGenerator(9, 50)
                     sudoku.fill_values()
@@ -185,7 +188,20 @@ if __name__ == "__main__":
                 if 250 < mouse_pos[0] < 360 and 660 < mouse_pos[1] < 700:
                     game_page = '1'
                 if 120 < mouse_pos[0] < 200 and 660 < mouse_pos[1] < 700:
-                    board.reset_to_original()
+                    # board.reset_to_original()
+                    game_page = '2'
+                    if level == 'easy':
+                        sudoku = SudokuGenerator(9, 30)
+                    elif level == 'medium':
+                        sudoku = SudokuGenerator(9, 40)
+                    elif level == 'hard':
+                        sudoku = SudokuGenerator(9, 50)
+                    sudoku.fill_values()
+                    player_board = sudoku.get_board()
+                    sudoku.remove_cells()
+                    board = Board(600, 600, screen, difficulty)
+                    board.update_board(player_board)
+
 
             if board.is_full():
                 print('solved?')
@@ -201,48 +217,48 @@ if __name__ == "__main__":
         # win
         elif game_page == '3':
             print("a")
-            # #if win_condition: #add the conditions to win
-            # if board.check_board(player_board):
-            #     color = (72, 158, 109)
-            #     screen.fill(color)
-            #     # Fonts
-            #     title_font = pygame.font.Font('freesansbold.ttf', 70)
-            #     button_font = pygame.font.Font('freesansbold.ttf', 50)
-            #     # Render the "GAME WON" text in white + center
-            #     surface = title_font.render("Game Won", True, pygame.Color('white'))
-            #     title_area = surface.get_rect(center=(300, 200))
-            #     screen.blit(surface, title_area)
-            #     # Render the "Exit" text in white + center
-            #     surface = button_font.render("Exit", True, pygame.Color('white'))
-            #     button_area = surface.get_rect(center=(300, 600))
-            #     screen.blit(surface, button_area)
-            #     if pygame.mouse.get_pressed()[0]:
-            #         if 250 < mouse_pos[0] < 350 and 550 < mouse_pos[1] < 650:
-            #             running = False
-            #
-            # #if lose_condition: #add the conditions to loose
-            # else:
-            #     color = (72, 158, 109)
-            #     screen.fill(color)
-            #     # Fonts
-            #     title_font = pygame.font.Font('freesansbold.ttf', 100)
-            #     button_font = pygame.font.Font('freesansbold.ttf', 100)
-            #     # Render the "Game Over" text in white + center
-            #     surface = title_font.render("Game Over :(", True, pygame.Color('white'))
-            #     title_area = surface.get_rect(center=(300, 200))
-            #     screen.blit(surface, title_area)
-            #     # Render the "Restart" text in white + center
-            #     surface = button_font.render("Restart", True, pygame.Color('white'))
-            #     button_area = surface.get_rect(center=(300, 600))
-            #     screen.blit(surface, button_area)
-            #     if pygame.mouse.get_pressed()[0]:
-            #         if 250 < mouse_pos[0] < 350 and 550 < mouse_pos[1] < 650:
-            #              game_page = '1'
+            #if win_condition: #add the conditions to win
+            if board.check_board(player_board):
+                color = (72, 158, 109)
+                screen.fill(color)
+                # Fonts
+                title_font = pygame.font.Font('freesansbold.ttf', 70)
+                button_font = pygame.font.Font('freesansbold.ttf', 50)
+                # Render the "GAME WON" text in white + center
+                surface = title_font.render("Game Won", True, pygame.Color('white'))
+                title_area = surface.get_rect(center=(300, 200))
+                screen.blit(surface, title_area)
+                # Render the "Exit" text in white + center
+                surface = button_font.render("Exit", True, pygame.Color('white'))
+                button_area = surface.get_rect(center=(300, 600))
+                screen.blit(surface, button_area)
+                if pygame.mouse.get_pressed()[0]:
+                    if 250 < mouse_pos[0] < 350 and 550 < mouse_pos[1] < 650:
+                        running = False
+
+            #if lose_condition: #add the conditions to loose
+            else:
+                color = (72, 158, 109)
+                screen.fill(color)
+                # Fonts
+                title_font = pygame.font.Font('freesansbold.ttf', 70)
+                button_font = pygame.font.Font('freesansbold.ttf', 50)
+                # Render the "Game Over" text in white + center
+                surface = title_font.render("Game Over :(", True, pygame.Color('white'))
+                title_area = surface.get_rect(center=(300, 200))
+                screen.blit(surface, title_area)
+                # Render the "Restart" text in white + center
+                surface = button_font.render("Restart", True, pygame.Color('white'))
+                button_area = surface.get_rect(center=(300, 600))
+                screen.blit(surface, button_area)
+                if pygame.mouse.get_pressed()[0]:
+                    if 250 < mouse_pos[0] < 350 and 550 < mouse_pos[1] < 650:
+                         game_page = '1'
 
         # testing ctrls
-        # button = pygame.key.get_pressed()
-        # if pygame.mouse.get_pressed()[0]:
-        #     print(mouse_pos)
+        button = pygame.key.get_pressed()
+        if pygame.mouse.get_pressed()[0]:
+            print(mouse_pos)
 
         # updates screen
         pygame.display.flip()
